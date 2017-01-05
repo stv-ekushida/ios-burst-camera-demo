@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ios_burst_camera_demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyO-sK-vUu">
+                                <rect key="frame" x="16" y="28" width="343" height="581"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v77-cU-jYp">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7Hw-fL-JeM"/>
+                                </constraints>
+                                <state key="normal" title="撮影"/>
+                                <connections>
+                                    <action selector="photoDidTapDown:" destination="BYZ-38-t0r" eventType="touchDown" id="ZGT-7a-KQi"/>
+                                    <action selector="photoDidTapUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="57K-DT-f2k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="v77-cU-jYp" firstAttribute="top" secondItem="lyO-sK-vUu" secondAttribute="bottom" constant="8" id="DWs-V3-nBg"/>
+                            <constraint firstItem="lyO-sK-vUu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="Gz7-7M-ZQJ"/>
+                            <constraint firstAttribute="trailing" secondItem="v77-cU-jYp" secondAttribute="trailing" constant="16" id="PK2-VV-dTY"/>
+                            <constraint firstItem="lyO-sK-vUu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pu2-Ex-IfQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v77-cU-jYp" secondAttribute="bottom" constant="20" id="YCG-CI-kcE"/>
+                            <constraint firstAttribute="trailing" secondItem="lyO-sK-vUu" secondAttribute="trailing" constant="16" id="ZdV-oA-m7Y"/>
+                            <constraint firstItem="v77-cU-jYp" firstAttribute="top" secondItem="lyO-sK-vUu" secondAttribute="bottom" constant="8" id="a0T-wm-7Jh"/>
+                            <constraint firstItem="v77-cU-jYp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="b5F-uW-g2J"/>
+                            <constraint firstItem="v77-cU-jYp" firstAttribute="top" secondItem="lyO-sK-vUu" secondAttribute="bottom" constant="8" id="ugI-kv-vhO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="baseView" destination="lyO-sK-vUu" id="uCs-AV-EKu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+</document>
