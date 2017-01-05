@@ -13,7 +13,6 @@ final class ViewController: UIViewController {
     
     @IBOutlet weak var baseView: UIView!
     
-    private let session = AVCaptureSession()
     private var camera: CameraTakeable?
     
     override func viewDidLoad() {
@@ -23,13 +22,13 @@ final class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        session.startRunning()
+        camera?.startRunning()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        session.stopRunning()
-        camera?.removeVideoInput(session: session)
+        camera?.stopRunning()
+        camera?.removeVideoInput()
     }
     
     private func setupCameraView(camera: CameraTakeable?) {
@@ -37,10 +36,9 @@ final class ViewController: UIViewController {
         self.camera = camera
         
         let device = camera?.findDevice(position: .back)
-        camera?.createVideoDataOutput(session: session)
+        camera?.createVideoDataOutput()
         
-        if let videoLayer = camera?.createVideoPreviewLayer(session: session,
-                                                            device: device) {            
+        if let videoLayer = camera?.createVideoPreviewLayer(device: device) {            
             videoLayer.frame = baseView.bounds
             videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
             baseView.layer.addSublayer(videoLayer)

@@ -11,11 +11,12 @@ import AVFoundation
 
 protocol CameraTakeable {
     
+    func startRunning()
+    func stopRunning()
     func findDevice(position: AVCaptureDevicePosition) -> AVCaptureDevice?
-    func createVideoPreviewLayer(session: AVCaptureSession?,
-                            device: AVCaptureDevice?) -> AVCaptureVideoPreviewLayer?
-    func createVideoDataOutput(session: AVCaptureSession?)
-    func removeVideoInput(session: AVCaptureSession?)
+    func createVideoPreviewLayer(device: AVCaptureDevice?) -> AVCaptureVideoPreviewLayer?
+    func createVideoDataOutput()
+    func removeVideoInput()
     func start()
     func stop()
     func photos() -> [UIImage]
@@ -27,9 +28,18 @@ final class BurstCameraUtil: NSObject {
     fileprivate var isShooting = false
     fileprivate var counter = 0
     
+    private let session = AVCaptureSession()
     private let photoOutput = AVCapturePhotoOutput()
     private let videoDataOutput = AVCaptureVideoDataOutput()
     
+    func startRunning() {
+        session.startRunning()
+    }
+    
+    func stopRunning() {
+        session.stopRunning()
+    }
+
     func findDevice(position: AVCaptureDevicePosition) -> AVCaptureDevice? {
         
         let device = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera,
@@ -40,39 +50,44 @@ final class BurstCameraUtil: NSObject {
         return device
     }
     
-    func createVideoPreviewLayer(session: AVCaptureSession?,
-                            device: AVCaptureDevice?) -> AVCaptureVideoPreviewLayer?{
+    func createVideoPreviewLayer(device: AVCaptureDevice?) -> AVCaptureVideoPreviewLayer?{
         
         let videoInput = try! AVCaptureDeviceInput.init(device: device)
         
-        if (session?.canAddInput(videoInput))! {
-            session?.addInput(videoInput)
+        if (session.canAddInput(videoInput)) {
+            session.addInput(videoInput)
         }
         
-        if (session?.canAddOutput(photoOutput))! {
-            session?.addOutput(photoOutput)
+        if (session.canAddOutput(photoOutput)) {
+            session.addOutput(photoOutput)
         }
         
         return AVCaptureVideoPreviewLayer.init(session: session)
     }
     
-    func removeVideoInput(session: AVCaptureSession?) {
+    func removeVideoInput() {
         
-        if let inputs = session?.inputs as? [AVCaptureDeviceInput] {
+        if let inputs = session.inputs as? [AVCaptureDeviceInput] {
             for input in inputs {
-                session?.removeInput(input)
+                session.removeInput(input)
+            }
+        }
+        
+        if let outpus = session.outputs as? [AVCapturePhotoOutput] {
+            for output in outpus {
+                session.removeOutput(output)
             }
         }
     }
     
-    func createVideoDataOutput(session: AVCaptureSession?) {
+    func createVideoDataOutput() {
         
         videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable : Int(kCVPixelFormatType_32BGRA)]
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
         videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
         
-        session?.addOutput(videoDataOutput)
-        session?.sessionPreset = AVCaptureSessionPreset1920x1080
+        session.addOutput(videoDataOutput)
+        session.sessionPreset = AVCaptureSessionPreset1920x1080
     }
     
     func start() {
