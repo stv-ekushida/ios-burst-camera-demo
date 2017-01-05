@@ -102,11 +102,6 @@ extension BurstCameraUtil: AVCaptureVideoDataOutputSampleBufferDelegate {
             if isShooting {
                 let image = imageFromSampleBuffer(sampleBuffer: sampleBuffer)
                 images.append(image)
-            } else {
-                
-                if images.count > 0 {
-                    images = []
-                }
             }
         }
         counter += 1
